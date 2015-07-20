@@ -1,0 +1,54 @@
+
+<html>
+<head>
+  <title>TabletSlideshow</title>
+
+  <script type="application/javascript">
+
+    (function() {
+
+      var httpRequest;
+
+      function GetNewImg() {
+        httpRequest = new XMLHttpRequest();
+
+        if (!httpRequest){
+          console.log("httpRequest invalid");
+          return false;
+        }
+
+        httpRequest.onreadystatechange = updateImageTag;
+        httpRequest.open("GET", "/get-img/?t=" + Math.random());
+        httpRequest.send();
+      }
+
+      function updateImageTag() {
+        if (httpRequest.readyState === 4) {
+          if (httpRequest.status === 200) {
+            var imgData = httpRequest.responseText;
+            //console.log(imgData);
+            document.getElementById("slideImg").src = "data:image/jpeg;base64," + imgData;
+          }
+          else {
+            console.log("Problem getting image");
+          }
+        }
+      }
+
+      //var intervalID = window.setInterval(GetNewImg, 1000);
+
+      GetNewImg();
+    })();
+
+  </script>
+
+
+</head>
+
+<body style="margin: 0;">
+  <div>
+    <img id="slideImg" src="" style="width: 100%;" />
+  </div>
+</body>
+
+</html>
