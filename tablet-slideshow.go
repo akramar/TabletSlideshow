@@ -37,8 +37,13 @@ func viewFrameHandler(w http.ResponseWriter, r *http.Request) {
 func getImgHandler(w http.ResponseWriter, r *http.Request) {
 	// List all the files
 	files, _ := ioutil.ReadDir("./uploads")
-	for _, f := range files {
-		fmt.Println(f.Name())
+	//for _, f := range files {
+	//	fmt.Println(f.Name())
+	//}
+
+	if len(files) == 0 || (len(files) == 1 && files[0].Name() == ".gitignore") {
+		fmt.Fprintf(w, "No images available!")
+		return
 	}
 
 	// Pick a random in the array
@@ -175,4 +180,5 @@ func main() {
 	}
 
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	//http.ListenAndServe(":8080", nil)
 }
