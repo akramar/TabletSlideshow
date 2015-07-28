@@ -36,6 +36,7 @@ func viewFrameHandler(w http.ResponseWriter, r *http.Request) {
 
 func getImgHandler(w http.ResponseWriter, r *http.Request) {
 	// List all the files
+	//TODO: should only pull image file types, not everything, that's dangerous
 	files, _ := ioutil.ReadDir("./uploads")
 	//for _, f := range files {
 	//	fmt.Println(f.Name())
@@ -57,6 +58,7 @@ func getImgHandler(w http.ResponseWriter, r *http.Request) {
 		chosenFile = files[randIdx]
 		fmt.Println("chosen file: " + chosenFile.Name())
 
+		// Change when filtering file list above
 		if chosenFile.Name() != ".gitignore" {
 			break
 		}
